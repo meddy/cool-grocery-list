@@ -1,21 +1,10 @@
 import * as firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
-import React, { useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useEffect } from "react";
 
-interface SignUpProps {
-  isAuthenticated: boolean;
-}
-
-function SignUp(props: SignUpProps) {
+export default function SignUp() {
   console.log("test");
-  const { isAuthenticated } = props;
-
   useEffect(() => {
-    if (isAuthenticated) {
-      return;
-    }
-
     const authUI = new firebaseui.auth.AuthUI(firebase.auth());
     authUI.start("#firebaseui-auth-container", {
       callbacks: {
@@ -28,13 +17,7 @@ function SignUp(props: SignUpProps) {
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
     });
-  }, [isAuthenticated]);
-
-  if (isAuthenticated) {
-    return <Redirect to="/" />;
-  }
+  }, []);
 
   return null;
 }
-
-export default SignUp;

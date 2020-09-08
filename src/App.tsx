@@ -1,16 +1,20 @@
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import Container from "@material-ui/core/Container";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import {
+  AppBar,
+  Container,
+  LinearProgress,
+  Link,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import React, { useEffect, useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Link as RouterLink, Redirect, Route, Switch } from "react-router-dom";
 
+import AuthButton from "./AuthButton";
 import Home from "./Home";
 import Lists from "./Lists";
-import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -40,14 +44,14 @@ export default function App() {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <LinearProgress />;
   }
 
   return (
     <Switch>
-      <Route exact path="/sign-up">
-        {isAuthenticated && <Redirect to="/" />}
-        {!isAuthenticated && <SignUp />}
+      <Route exact path="/sign-in">
+        {isAuthenticated && <Redirect to="/lists" />}
+        {!isAuthenticated && <SignIn />}
       </Route>
       <Route path="/">
         <AppBar
@@ -63,16 +67,16 @@ export default function App() {
               noWrap
               variant="h6"
             >
-              Cool Grocery List
+              <Link component={RouterLink} to="/" underline="none">
+                Cool Grocery List
+              </Link>
             </Typography>
-            <Button
-              className={classes.link}
-              color="primary"
-              href="#"
-              variant="outlined"
-            >
-              Sign Out
-            </Button>
+            <AuthButton
+              isAuthenticated={isAuthenticated}
+              onSignOut={() => {
+                setUser(null);
+              }}
+            />
           </Toolbar>
         </AppBar>
         <Container component="main" maxWidth="sm">
@@ -82,7 +86,7 @@ export default function App() {
             </Route>
             {!isAuthenticated && (
               <Route path="*">
-                <Redirect to="/sign-up" />
+                <Redirect to="/sign-in" />
               </Route>
             )}
             <Route exact path="/lists">

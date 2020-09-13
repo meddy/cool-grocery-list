@@ -1,6 +1,6 @@
 import { Container, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
 import React, { useEffect } from "react";
 

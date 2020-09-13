@@ -9,7 +9,13 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import * as firebase from "firebase/app";
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink, Redirect, Route, Switch } from "react-router-dom";
+import {
+  Link as RouterLink,
+  Redirect,
+  Route,
+  Switch,
+  useLocation,
+} from "react-router-dom";
 
 import AuthButton from "./AuthButton";
 import Home from "./Home";
@@ -34,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const classes = useStyles();
   const [user, setUser] = useState<firebase.User | null | false>(false);
+  const { pathname } = useLocation();
   const isLoading = user === false;
   const isAuthenticated = !!user;
 
@@ -48,56 +55,51 @@ export default function App() {
   }
 
   return (
-    <Switch>
-      <Route exact path="/sign-in">
-        {isAuthenticated && <Redirect to="/lists" />}
-        {!isAuthenticated && <SignIn />}
-      </Route>
-      <Route path="/">
-        <AppBar
-          className={classes.appBar}
-          color="default"
-          elevation={0}
-          position="static"
-        >
-          <Toolbar className={classes.toolbar}>
-            <Typography
-              className={classes.toolbarTitle}
-              color="inherit"
-              noWrap
-              variant="h6"
-            >
-              <Link component={RouterLink} to="/" underline="none">
-                Cool Grocery List
-              </Link>
-            </Typography>
+    <>
+      <AppBar
+        className={classes.appBar}
+        color="default"
+        elevation={0}
+        position="static"
+      >
+        <Toolbar className={classes.toolbar}>
+          <Typography
+            className={classes.toolbarTitle}
+            color="inherit"
+            noWrap
+            variant="h6"
+          >
+            <Link component={RouterLink} to="/" underline="none">
+              Cool Grocery List
+            </Link>
+          </Typography>
+          {pathname !== "/sign-in" && (
             <AuthButton
               isAuthenticated={isAuthenticated}
               onSignOut={() => {
                 setUser(null);
               }}
             />
-          </Toolbar>
-        </AppBar>
-        <Container component="main" maxWidth="sm">
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            {!isAuthenticated && (
-              <Route path="*">
-                <Redirect to="/sign-in" />
-              </Route>
-            )}
-            <Route exact path="/lists">
-              <Lists />
-            </Route>
-            <Route path="*">
-              <h1>Not Found</h1>
-            </Route>
-          </Switch>
-        </Container>
-      </Route>
-    </Switch>
+          )}
+        </Toolbar>
+      </AppBar>
+      <Container component="main" maxWidth="sm">
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/sign-in">
+            {isAuthenticated && <Redirect to="/lists" />}
+            {!isAuthenticated && <SignIn />}
+          </Route>
+          <Route exact path="/lists">
+            <Lists />
+          </Route>
+          <Route path="*">
+            <h1>Not Found</h1>
+          </Route>
+        </Switch>
+      </Container>
+    </>
   );
 }

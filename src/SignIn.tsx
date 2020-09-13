@@ -1,9 +1,8 @@
-import { Container, Link, Paper, Typography } from "@material-ui/core";
+import { Container, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import * as firebase from "firebase/app";
 import * as firebaseui from "firebaseui";
 import React, { useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,9 +44,6 @@ export default function SignIn() {
           Sign In / Up
         </Typography>
         <div id="firebaseui-auth-container" />
-        <Link component={RouterLink} to="/">
-          Home
-        </Link>
       </Paper>
     </Container>
   );

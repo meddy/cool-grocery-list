@@ -32,21 +32,35 @@ export default function App() {
         }}
       />
       <Container component="main" maxWidth="sm">
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/sign-in">
-            {isAuthenticated && <Redirect to="/lists" />}
-            {!isAuthenticated && <SignIn />}
-          </Route>
-          <Route exact path="/lists">
-            <Lists />
-          </Route>
-          <Route path="*">
-            <h1>Not Found</h1>
-          </Route>
-        </Switch>
+        {isAuthenticated && (
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/sign-in">
+              <Redirect to="/lists" />
+            </Route>
+            <Route exact path="/lists">
+              <Lists />
+            </Route>
+            <Route path="*">
+              <h1>Not Found</h1>
+            </Route>
+          </Switch>
+        )}
+        {!isAuthenticated && (
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/sign-in">
+              <SignIn />
+            </Route>
+            <Route path="*">
+              <Redirect to="/sign-in" />
+            </Route>
+          </Switch>
+        )}
       </Container>
     </>
   );

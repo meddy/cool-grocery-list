@@ -48,15 +48,17 @@ export default function Header(props: HeaderProps) {
           </Link>
         </Typography>
         <nav>
-          <Link
-            className={classes.navItem}
-            color="textPrimary"
-            component={RouterLink}
-            to="/lists"
-            variant="button"
-          >
-            Lists
-          </Link>
+          {isAuthenticated && (
+            <Link
+              className={classes.navItem}
+              color="textPrimary"
+              component={RouterLink}
+              to="/lists"
+              variant="button"
+            >
+              Lists
+            </Link>
+          )}
         </nav>
         {pathname !== "/sign-in" && (
           <Button

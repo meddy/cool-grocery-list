@@ -6,7 +6,10 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import Home from "./Home";
 import Lists from "./Lists";
+import NotFound from "./NotFound";
 import SignIn from "./SignIn";
+
+// const db = firebase.firestore();
 
 export default function App() {
   const [user, setUser] = useState<firebase.User | null | false>(false);
@@ -15,6 +18,7 @@ export default function App() {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
       setUser(user);
     });
   }, []);
@@ -34,31 +38,21 @@ export default function App() {
       <Container component="main" maxWidth="sm">
         {isAuthenticated && (
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/sign-in">
-              <Redirect to="/lists" />
-            </Route>
-            <Route exact path="/lists">
-              <Lists />
-            </Route>
-            <Route path="*">
-              <h1>Not Found</h1>
-            </Route>
+            <Route component={Home} exact path="/" />
+            <Route
+              exact
+              path="/sign-in"
+              render={() => <Redirect to="/lists" />}
+            />
+            <Route component={Lists} exact path="/lists" />
+            <Route component={NotFound} path="*" />
           </Switch>
         )}
         {!isAuthenticated && (
           <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/sign-in">
-              <SignIn />
-            </Route>
-            <Route path="*">
-              <Redirect to="/sign-in" />
-            </Route>
+            <Route component={Home} exact path="/" />
+            <Route component={SignIn} exact path="/sign-in" />
+            <Route path="*" render={() => <Redirect to="/sign-in" />} />
           </Switch>
         )}
       </Container>

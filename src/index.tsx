@@ -1,8 +1,8 @@
-import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
-import firebase from "firebase/app";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { createMuiTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
+import firebase from "firebase/app";
 
 import "firebase/auth";
 import "firebaseui/dist/firebaseui.css";

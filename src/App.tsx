@@ -1,7 +1,7 @@
-import { Container, LinearProgress } from "@material-ui/core";
-import firebase from "firebase/app";
 import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { Container, LinearProgress } from "@material-ui/core";
+import firebase from "firebase/app";
 
 import Header from "./Header";
 import Home from "./Home";

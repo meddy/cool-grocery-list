@@ -1,12 +1,13 @@
+import React from "react";
 import {
-  Checkbox,
+  IconButton,
   List,
   ListItem,
-  ListItemIcon,
+  ListItemSecondaryAction,
   ListItemText,
   makeStyles,
 } from "@material-ui/core";
-import React from "react";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,18 +19,38 @@ const useStyles = makeStyles((theme) => ({
 export default function Lists() {
   const classes = useStyles();
   return (
-    <List className={classes.root} component="nav">
-      <ListItem button>
-        <ListItemIcon>
-          <Checkbox disableRipple edge="start" />
-        </ListItemIcon>
-        <ListItemText primary="Cool thing 1" />
+    <List className={classes.root}>
+      <ListItem button dense>
+        <ListItemText primary="Cool list 1" />
+        <ListItemSecondaryAction>
+          <IconButton edge="end">
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <Checkbox disableRipple edge="start" />
-        </ListItemIcon>
-        <ListItemText primary="Cool thing 2" />
+      <ListItem button dense>
+        <ListItemText primary="Cool list 2" />
+        <ListItemSecondaryAction>
+          <IconButton edge="end">
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem button dense>
+        <ListItemText primary="Cool list 3" />
+        <ListItemSecondaryAction>
+          <IconButton edge="end">
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem button dense>
+        <ListItemText primary="Cool list 4" />
+        <ListItemSecondaryAction>
+          <IconButton edge="end">
+            <ArrowForwardIosIcon />
+          </IconButton>
+        </ListItemSecondaryAction>
       </ListItem>
     </List>
   );

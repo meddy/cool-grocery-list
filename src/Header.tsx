@@ -1,14 +1,14 @@
+import React from "react";
+import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 import {
   AppBar,
   Button,
   Link,
+  makeStyles,
   Toolbar,
   Typography,
-  makeStyles,
 } from "@material-ui/core";
 import firebase from "firebase/app";
-import React from "react";
-import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   header: {

@@ -3,9 +3,9 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { Container, LinearProgress } from "@material-ui/core";
 import firebase from "firebase/app";
 
+import GroceryLists from "./GroceryLists";
 import Header from "./Header";
 import Home from "./Home";
-import Lists from "./Lists";
 import NotFound from "./NotFound";
 import SignIn from "./SignIn";
 
@@ -44,7 +44,7 @@ export default function App() {
               path="/sign-in"
               render={() => <Redirect to="/lists" />}
             />
-            <Route component={Lists} exact path="/lists" />
+            <Route component={GroceryLists} exact path="/lists" />
             <Route component={NotFound} path="*" />
           </Switch>
         )}

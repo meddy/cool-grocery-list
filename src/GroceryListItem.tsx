@@ -7,10 +7,15 @@ import {
 } from "@material-ui/core";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
-export default function ListItem() {
+export interface GroceryListItemProps {
+  name: string;
+}
+
+export default function GroceryListItem(props: GroceryListItemProps) {
+  const { name } = props;
   return (
     <ListItemContainer button dense>
-      <ListItemText primary="Cool list 1" />
+      <ListItemText primary={name} />
       <ListItemSecondaryAction>
         <IconButton edge="end">
           <ArrowForwardIosIcon />
